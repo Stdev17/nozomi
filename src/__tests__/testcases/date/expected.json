@@ -1,0 +1,33 @@
+{
+  "name": "SampleAPI",
+  "api": {
+    "rootName": "SampleAPI",
+    "classes": [
+      {
+        "className": "Req",
+        "flag": {
+          "class": true
+        },
+        "members": [
+          {
+            "type": "string",
+            "name": "date",
+            "caseName": "Date"
+          }
+        ]
+      },
+      {
+        "className": "Resp",
+        "flag": {
+          "class": true
+        }
+      }
+    ],
+    "method": {
+      "resp": "SampleAPI.Resp",
+      "req": "SampleAPI.Req",
+      "url": "/sample/api",
+      "method": "GET"
+    }
+  }
+}

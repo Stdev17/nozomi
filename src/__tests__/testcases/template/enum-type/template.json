@@ -1,0 +1,91 @@
+{
+    "name": "EnumType",
+    "api": {
+      "rootName": "EnumType",
+      "classes": [
+        {
+          "className": "EnumObj",
+          "flag": {
+            "enum": true
+          },
+          "members": [
+            {
+              "type": "A",
+              "name": "A",
+              "caseName": "A"
+            },
+            {
+              "type": "B",
+              "name": "B",
+              "caseName": "B"
+            },
+            {
+              "type": "C",
+              "name": "C",
+              "caseName": "C"
+            },
+            {
+              "type": "D",
+              "name": "D",
+              "caseName": "D"
+            }
+          ]
+        },
+        {
+          "className": "EnumObjInit",
+          "flag": {
+            "enum": true
+          },
+          "members": [
+            {
+              "type": "A",
+              "name": "1",
+              "caseName": "A"
+            },
+            {
+              "type": "B",
+              "name": "string",
+              "caseName": "B"
+            }
+          ]
+        },
+        {
+          "className": "Req",
+          "flag": {
+            "class": true
+          },
+          "members": [
+            {
+              "type": "EnumObj",
+              "name": "enumObj",
+              "flag": {
+                "enum": true
+              },
+              "caseName": "EnumObj"
+            },
+            {
+              "type": "EnumObjInit",
+              "name": "enumObjInit",
+              "flag": {
+                "enum": true
+              },
+              "caseName": "EnumObjInit"
+            }
+          ]
+        },
+        {
+          "className": "Resp",
+          "flag": {
+            "class": true
+          },
+          "members": []
+        }
+      ],
+      "method": {
+        "resp": "EnumType.Resp",
+        "req": "EnumType.Req",
+        "url": "/sample/api",
+        "method": "GET"
+      }
+    }
+  }

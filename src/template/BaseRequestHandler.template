@@ -1,0 +1,17 @@
+using System;
+using System.Threading.Tasks;
+
+namespace {{namespace}}
+{
+    public partial class BaseRequestHandler
+    {
+        protected virtual Task<TResp> Handle<TReq, TResp>(
+            string method,
+            string path,
+            TReq req
+        )
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

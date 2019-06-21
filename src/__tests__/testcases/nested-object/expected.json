@@ -1,0 +1,110 @@
+{
+  "name": "NestedObject",
+  "api": {
+    "rootName": "NestedObject",
+    "classes": [
+      {
+        "className": "C",
+        "flag": {
+          "class": true
+        },
+        "members": [
+          {
+            "type": "bool",
+            "name": "e",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "E"
+          },
+          {
+            "type": "F",
+            "name": "f",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "F"
+          }
+        ]
+      },
+      {
+        "className": "F",
+        "flag": {
+          "class": true
+        },
+        "members": [
+          {
+            "type": "int",
+            "name": "g",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "G"
+          },
+          {
+            "type": "string",
+            "name": "h",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "H"
+          }
+        ]
+      },
+      {
+        "className": "Req",
+        "flag": {
+          "class": true
+        },
+        "members": [
+          {
+            "type": "int",
+            "name": "a",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "A"
+          },
+          {
+            "type": "List<string>",
+            "name": "b",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "B"
+          },
+          {
+            "type": "C",
+            "name": "c",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "C"
+          }
+        ]
+      },
+      {
+        "className": "Resp",
+        "flag": {
+          "class": true
+        },
+        "members": [
+          {
+            "type": "List<List<string>>",
+            "name": "r",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "R"
+          }
+        ]
+      }
+    ],
+    "method": {
+      "resp": "NestedObject.Resp",
+      "req": "NestedObject.Req",
+      "url": "/sample/nestedobj",
+      "method": "POST"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+namespace {{namespace}}.Stream
+{
+    public class BaseDispatcher
+    {
+        public static string[] Channels = new string[]
+        {
+            {{#items}}"{{.}}", {{/items}}
+        };
+    }
+}

@@ -1,0 +1,65 @@
+{
+  "name": "SampleAPI",
+  "api": {
+    "rootName": "SampleAPI",
+    "classes": [
+      {
+        "className": "Req",
+        "flag": {
+          "class": true
+        },
+        "members": [
+          {
+            "type": "int?",
+            "name": "a",
+            "flag": {
+              "enum": false
+            },
+            "optional": true,
+            "caseName": "A"
+          },
+          {
+            "type": "string",
+            "name": "b",
+            "flag": {
+              "enum": false
+            },
+            "optional": true,
+            "caseName": "B"
+          },
+          {
+            "type": "bool?",
+            "name": "c",
+            "flag": {
+              "enum": false
+            },
+            "optional": true,
+            "caseName": "C"
+          },
+          {
+            "type": "string",
+            "name": "d",
+            "flag": {
+              "enum": false
+            },
+            "optional": true,
+            "caseName": "D"
+          }
+        ]
+      },
+      {
+        "className": "Resp",
+        "flag": {
+          "class": true
+        },
+        "members": []
+      }
+    ],
+    "method": {
+      "resp": "SampleAPI.Resp",
+      "req": "SampleAPI.Req",
+      "url": "/sample/api",
+      "method": "GET"
+    }
+  }
+}

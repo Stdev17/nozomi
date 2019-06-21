@@ -1,0 +1,82 @@
+using Fiveminlab.Newtonsoft.Json;
+
+namespace {{namespace}}
+{
+    public class {{name}}
+    {
+        {{#classes}}
+        {{#flag.class}}
+        public class {{className}}
+        {
+            {{#members}}
+            {{#flag.enum}}
+            [IgnoreMember]
+            [JsonIgnore]
+            public {{&type}} {{name}}
+            {
+                get
+                {
+                    return {{&type}}.Get(__raw_{{name}});
+                }
+                set
+                {
+                    __raw_{{name}} = value.ToString();
+                }
+            }
+
+            [JsonProperty("{{name}}")]
+            public string __raw_{{name}};
+            {{/flag.enum}}
+            {{^flag.enum}}
+            [JsonProperty("{{name}}")]
+            public {{&type}} {{name}};
+            {{/flag.enum}}
+            {{/members}}
+        }
+        {{/flag.class}}
+        {{#flag.enum}}
+        public class {{className}}
+        {
+            readonly string _value;
+            public {{className}}()
+            {
+
+            }
+            public {{className}}(string value)
+            {
+                this._value = value;
+            }
+            public override string ToString()
+            {
+                return this._value;
+            }
+            public static implicit operator string({{className}} d)
+            {
+                return d._value;
+            }
+            public static implicit operator {{className}}(string d)
+            {
+                return new {{className}}(d);
+            }
+
+            {{#members}}
+            public static {{className}} {{type}} = new {{className}}("{{name}}");
+            {{/members}}
+
+            public static {{className}} Get(string key)
+            {
+                switch (key)
+                {
+                    {{#members}}
+                    case "{{name}}":
+                        return {{type}};
+                    {{/members}}
+                    default:
+                        throw new InvalidOperationException("Enum invalid operator");
+                }
+            }
+        }
+        {{/flag.enum}}
+        {{/classes}}
+    }
+}

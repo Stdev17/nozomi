@@ -1,0 +1,25 @@
+using System;
+using Fiveminlab.Newtonsoft.Json;
+
+namespace {{namespace}}.Stream
+{
+    public abstract class {{dispatcher}}
+    {
+        {{#items}}
+        public abstract void {{event}}({{type}} message);
+        {{/items}}
+
+        public void Dispatch(string Type, string Context)
+        {
+            {{#items}}
+            if (Type == "{{name}}")
+            {
+                var msg = JsonConvert.DeserializeObject<{{type}}>(Context);
+                {{event}}(msg);
+                return;
+            }
+            {{/items}}
+            throw new ArgumentOutOfRangeException();
+        }
+    }
+}
