@@ -5,7 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "all": "cross-env npm run clean && npm run generate && npm run publish",
-    "clean": "npm run ts-node scripts/clean.ts",
+    "clean": "npm run ts-node scripts/clean.ts && rimraf dist",
     "clean-output": "npm run ts-node scripts/clean-output.ts",
     "clean-generated": "npm run ts-node scripts/clean-generated.ts",
     "generate": "cross-env NOZOMI_NAMESPACE=Nozomi.Dev TARGET_FILES=server/src/index.ts,dev/message-handler.ts npm run ts-node src/main.ts",
@@ -34,6 +34,7 @@
     "@types/relaxed-json": "^1.0.0",
     "cross-env": "^5.2.0",
     "jest": "^24.8.0",
+    "rimraf": "^2.6.3",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.1.0",
     "tslint": "^5.16.0",
