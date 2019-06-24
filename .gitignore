@@ -549,3 +549,6 @@ Generated/
 .vscode
 
 # End of https://www.gitignore.io/api/node,unity,macos,windows,visualstudio,visualstudiocode
+
+# cusom
+dist
