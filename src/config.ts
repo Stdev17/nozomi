@@ -6,14 +6,30 @@ import path from 'path';
  */
 const runningPath = path.resolve('.');
 
+/**
+ * ts-node: src/foo.ts
+ * tsc + node: dist/src/foo.js
+ * 경로의 깊이가 다르다
+ */
+function getRootPath() {
+	if (process.argv[0].includes('ts-node')) {
+		return path.resolve(__dirname, '..');
+	} else {
+		return path.resolve(__dirname, '../..');
+	}
+}
+
+const rootPath = getRootPath();
+const csprojPath = path.resolve(rootPath, 'csproject');
+
 export const paths = {
-	root: __dirname,
+	root: rootPath,
 	running: runningPath,
 	csproj: {
-		base: path.resolve(__dirname, '../csproject/Nozomi'),
-		managedClient: path.resolve(__dirname, '../csproject/Nozomi.ManagedClient'),
-		test: path.resolve(__dirname, '../csproject/NozomiTest'),
-		generated: path.resolve(__dirname, '../csproject/Nozomi/Generated'),
+		base: path.resolve(csprojPath, 'Nozomi'),
+		managedClient: path.resolve(csprojPath, 'Nozomi.ManagedClient'),
+		test: path.resolve(csprojPath, 'NozomiTest'),
+		generated: path.resolve(csprojPath, 'Nozomi/Generated'),
 	},
 	output: path.resolve(runningPath, 'output'),
 };
