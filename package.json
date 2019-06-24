@@ -11,7 +11,7 @@
     "generate": "cross-env NOZOMI_NAMESPACE=Nozomi.Dev TARGET_FILES=server/src/index.ts,dev/message-handler.ts npm run ts-node src/main.ts",
     "publish": "cross-env NOZOMI_NAMESPACE=Nozomi.Dev npm run ts-node scripts/publish.ts",
     "test-jest": "jest",
-    "test-api": "npm run ts-node scripts/test-api.ts",
+    "test-api": "npm run ts-node integration-test/test-api.ts",
     "ts-node": "ts-node -r tsconfig-paths/register --transpile-only",
     "test-watch": "jest --watch",
     "lint": "tslint -p ./tsconfig.json",

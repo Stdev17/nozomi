@@ -66,5 +66,6 @@
     "./src/__tests__/testcases/*",
     "./server",
     "./dev",
+    "./integration-test",
   ]
 }

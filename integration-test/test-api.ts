@@ -4,7 +4,7 @@
  * 실패하거나 로그 생성이 안되면 빌드가 멈춤
  */
 import app from '../server/src/app';
-import { execCommand } from './utils';
+import { execCommand } from '../scripts/utils';
 
 async function listenNozomiServer(port: number) {
 	return app.listen(port, '127.0.0.1', () => {
