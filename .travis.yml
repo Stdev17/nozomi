@@ -18,8 +18,8 @@ script:
   - npm run test-jest
   - npm run clean
   - npm run generate
-  # TODO publish
-  # TODO test-api
+  - npm run publish
+  - npm run test-api
   - npm run lint
 
 notifications:
