@@ -1,6 +1,7 @@
 import path from 'path';
 import fse from 'fs-extra';
 import mustache from 'mustache';
+import { paths } from './config';
 
 type NozomiTemplateKind = 'NozomiTemplate' | 'NozomiHandlerTemplate';
 export interface NozomiTemplate {
@@ -66,28 +67,28 @@ export interface NozomiRequestHandlerTemplate {
 
 export class Render {
 	public static nozomi(template: NozomiTemplate) {
-		return mustache.render(readTemplateFile(path.join('template', 'Nozomi.template')), template);
+		return mustache.render(readTemplateFile('Nozomi.template'), template);
 	}
 
 	public static nozomiHandler(template: NozomiHandlerTemplate) {
-		return mustache.render(readTemplateFile(path.join('template', 'NozomiHandler.template')), template);
+		return mustache.render(readTemplateFile('NozomiHandler.template'), template);
 	}
 
 	public static generatedDispatcher(template: NozomiDispatcherTemplate) {
-		return mustache.render(readTemplateFile(path.join('template', 'GeneratedDispatcher.template')), template);
+		return mustache.render(readTemplateFile('GeneratedDispatcher.template'), template);
 	}
 
 	public static baseDispatcher(template: NozomiBaseDispatcherTemplate) {
-		return mustache.render(readTemplateFile(path.join('template', 'BaseDispatcher.template')), template);
+		return mustache.render(readTemplateFile('BaseDispatcher.template'), template);
 	}
 
 	public static baseRequestHandler(template: NozomiRequestHandlerTemplate) {
-		return mustache.render(readTemplateFile(path.join('template', 'BaseRequestHandler.template')), template);
+		return mustache.render(readTemplateFile('BaseRequestHandler.template'), template);
 	}
 }
 
 function readTemplateFile(name: string) {
-	const filename = path.join(__dirname, name);
+	const filename = path.join(paths.root, 'template', name);
 	const encoding = { encoding: 'utf8' };
 	return fse.readFileSync(filename, encoding);
 }
