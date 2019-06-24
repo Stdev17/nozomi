@@ -28,17 +28,15 @@ interface SimpleRequest {
 	body: Request['body'];
 	query: Request['query'];
 	params: Request['params'];
-	files: Request['files'];
 }
 
 // TODO T의 내부 타입을 보고 분기할수 있으면 좋겠다
 // req.body가 string으로 들어와도 T에 number로 선언한것은 number가 되면 좋겠다
 export const getRequestContext = <T>(req: SimpleRequest): T => {
-	const list: Array<Request['body'] | Request['query'] | Request['params'] | Request['files']> = [];
+	const list: Array<Request['body'] | Request['query'] | Request['params']> = [];
 	if (!_.isEmpty(req.body)) { list.push(req.body); }
 	if (!_.isEmpty(req.query)) { list.push(req.query); }
 	if (!_.isEmpty(req.params)) { list.push(req.params); }
-	if (!_.isEmpty(req.files)) { list.push(req.files); }
 
 	let body: { [P in keyof T]?: any; } = {};
 	for (const x of list) {
@@ -57,12 +55,11 @@ export const makeRequest = async <T extends object>(
 ): Promise<MyRequest<T>> => {
 	const raw = getRequestContext<T>({
 		body: req.body,
-		files: req.files,
 		params: req.params,
 		query: req.query,
 	});
 	const body = await readArguments(raw, schema);
-	console.log({body});
+	console.log({ body });
 	return {
 		body,
 		req,
