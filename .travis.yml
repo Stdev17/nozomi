@@ -1,0 +1,26 @@
+language: node_js
+
+node_js:
+  - "node"
+  - "10"
+  - "12"
+
+dist: xenial
+
+before_install:
+  - bash ./etc/install_dotnet.sh
+  - dotnet --version
+
+install:
+  - npm install
+
+script:
+  - npm run test-jest
+  - npm run clean
+  - npm run generate
+  # TODO publish
+  # TODO test-api
+  - npm run lint
+
+notifications:
+  email: false
