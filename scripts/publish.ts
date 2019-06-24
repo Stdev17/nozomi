@@ -30,14 +30,21 @@ async function build(basePath: string, buildPath: string) {
 }
 
 async function main() {
-	await build(
-		paths.csproj.base,
-		path.resolve(paths.csproj.base, 'bin/Debug/netstandard2.0/publish'),
-	);
-	await build(
-		paths.csproj.managedClient,
-		path.resolve(paths.csproj.managedClient, 'bin/Debug/netstandard2.0/publish'),
-	);
+	const buildTargets = [
+		[paths.csproj.base, 'bin/Debug/netstandard2.0/publish'],
+		[paths.csproj.managedClient, 'bin/Debug/netstandard2.0/publish'],
+	];
+
+	for (const target of buildTargets) {
+		const basePath = target[0];
+		const buildPath = path.resolve(target[0], target[1]);
+
+		try {
+			await build(basePath, buildPath);
+		} catch (err) {
+			console.error(`build fail: ${basePath}`);
+		}
+	}
 }
 
 main();
