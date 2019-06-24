@@ -4,7 +4,7 @@ import fse from 'fs-extra';
 
 import { paths } from '../src/config';
 import { execCommand } from './utils';
-import { clean } from '@src/utils';
+import { clean } from '../src/utils';
 
 const namespace = process.env.NOZOMI_NAMESPACE;
 

@@ -1,6 +1,6 @@
 import ts from 'typescript';
 
-import { TransformContext } from '@src/transform';
+import { TransformContext } from '../transform';
 
 export class CSharpContext implements TransformContext {
 	public *traversal(type: ts.Type) {

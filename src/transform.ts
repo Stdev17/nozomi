@@ -4,7 +4,7 @@ import * as T from './template';
 import * as U from './utils';
 
 import { TSC, NodeType } from './compiler';
-import { CSharpContext } from '@transform/csharp';
+import { CSharpContext } from './transform/csharp';
 import {
 	NodeInfoRoot,
 	NodeInfoItem,

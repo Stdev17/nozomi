@@ -1,5 +1,5 @@
-import { TSC } from '@src/compiler';
-import { CSharpContext } from '@transform/csharp';
+import { TSC } from '../compiler';
+import { CSharpContext } from '../transform/csharp';
 
 const csharpContext = new CSharpContext();
 const tsc = new TSC({}, csharpContext);

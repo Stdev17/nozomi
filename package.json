@@ -16,7 +16,8 @@
     "test-watch": "jest --watch",
     "lint": "tslint -p ./tsconfig.json",
     "spawn": "cross-env NOZOMI_NAMESPACE=ASDF npm run ts-node spawn.ts",
-    "build": "tsc"
+    "build": "tsc && cp -r ./src/template ./dist/src/template",
+    "check:watch": "tsc -w --skipLibCheck"
   },
   "author": "5minlab",
   "license": "ISC",

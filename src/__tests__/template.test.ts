@@ -1,9 +1,8 @@
-import * as U from '@src/utils';
-import * as G from '@src/generator';
-import { Render } from '@src/template';
+import * as U from '../utils';
+import { Render } from '../template';
 
-import { TSC } from '@src/compiler';
-import { CSharpContext } from '@transform/csharp';
+import { TSC } from '../compiler';
+import { CSharpContext } from '../transform/csharp';
 
 const csharpContext = new CSharpContext();
 const tsc = new TSC({}, csharpContext);

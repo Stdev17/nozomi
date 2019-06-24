@@ -2,7 +2,7 @@ import * as U from './utils';
 
 import { TSC } from './compiler';
 import { generate, outputScript } from './generator';
-import { CSharpContext } from '@transform/csharp';
+import { CSharpContext } from './transform/csharp';
 
 async function main(files: string[]) {
 	const csharpContext = new CSharpContext();
