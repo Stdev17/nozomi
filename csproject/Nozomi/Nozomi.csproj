@@ -6,9 +6,13 @@
     <StartupObject />
     <AssemblyName>$(NOZOMI_NAMESPACE)</AssemblyName>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup Condition="$(USE_MSGPACK)!=''">
     <PackageReference Include="MessagePack" Version="1.7.3.7" />
   </ItemGroup>
+  <PropertyGroup Condition="$(USE_MSGPACK)!=''">
+    <AssemblyTitle>Nozomi+MessagePack</AssemblyTitle>
+    <DefineConstants>USE_MSGPACK;$(AdditionalConstants)</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fiveminlab.Newtonsoft.Json">
       <HintPath>..\Dependency\AOT\Fiveminlab.Newtonsoft.Json.dll</HintPath>
