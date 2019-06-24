@@ -20,7 +20,7 @@ script:
   - npm run test-jest
   - npm run clean
   - npm run generate
-  - npm run publish
+  - npm run publish:msgpack
   - npm run test-api
   - npm run lint
 
