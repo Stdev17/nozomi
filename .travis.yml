@@ -13,8 +13,10 @@ before_install:
 
 install:
   - npm install
+  - cd server && npm install && cd -
 
 script:
+  - npm run build
   - npm run test-jest
   - npm run clean
   - npm run generate

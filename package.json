@@ -15,7 +15,8 @@
     "ts-node": "ts-node -r tsconfig-paths/register --transpile-only",
     "test-watch": "jest --watch",
     "lint": "tslint -p ./tsconfig.json",
-    "spawn": "cross-env NOZOMI_NAMESPACE=ASDF npm run ts-node spawn.ts"
+    "spawn": "cross-env NOZOMI_NAMESPACE=ASDF npm run ts-node spawn.ts",
+    "build": "tsc"
   },
   "author": "5minlab",
   "license": "ISC",
