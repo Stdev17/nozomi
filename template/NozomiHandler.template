@@ -10,7 +10,9 @@ namespace {{namespace}}
         {
             {{#members}}
             {{#flag.enum}}
+#if USE_MSGPACK
             [IgnoreMember]
+#endif
             [JsonIgnore]
             public {{&type}} {{name}}
             {

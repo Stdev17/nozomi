@@ -6,7 +6,9 @@ using System.Runtime.Serialization;
 using Fiveminlab.Newtonsoft.Json;
 using Fiveminlab.Newtonsoft.Json.Converters;
 
+#if USE_MSGPACK
 using MessagePack;
+#endif
 
 namespace {{namespace}}
 {
@@ -14,12 +16,16 @@ namespace {{namespace}}
     {
         {{#classes}}
         {{#flag.class}}
+#if USE_MSGPACK
         [MessagePackObject]
+#endif
         public class {{className}}
         {
             {{#members}}
             {{#flag.enum}}
+#if USE_MSGPACK
             [IgnoreMember]
+#endif
             [JsonIgnore]
             public {{&type}} {{name}}
             {
@@ -33,12 +39,16 @@ namespace {{namespace}}
                 }
             }
 
+#if USE_MSGPACK
             [KeyAttribute("{{name}}")]
+#endif
             [JsonProperty("{{name}}")]
             public string __raw_{{name}};
             {{/flag.enum}}
             {{^flag.enum}}
+#if USE_MSGPACK
             [KeyAttribute("{{name}}")]
+#endif
             [JsonProperty("{{name}}")]
             public {{&type}} {{name}};
             {{/flag.enum}}
@@ -46,7 +56,9 @@ namespace {{namespace}}
         }
         {{/flag.class}}
         {{#flag.enum}}
+#if USE_MSGPACK
         [MessagePackObject]
+#endif
         public class {{className}}
         {
             readonly string _value;

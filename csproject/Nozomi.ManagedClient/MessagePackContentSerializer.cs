@@ -3,7 +3,9 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+#if USE_MSGPACK
 using MessagePack;
+#endif
 
 namespace Nozomi
 {
@@ -13,6 +15,7 @@ namespace Nozomi
 
         public Task<HttpContent> SerializeAsync<T>(object data)
         {
+#if USE_MSGPACK
             if (data == null)
             {
                 return null;
@@ -30,17 +33,25 @@ namespace Nozomi
 
             var content = new ByteArrayContent(bin);
             return Task.FromResult<HttpContent>(content);
+#else
+            throw new NotSupportedException();
+#endif
         }
 
         public async Task<T> DeserializeAsync<T>(HttpContent content)
         {
+#if USE_MSGPACK
             using (var s = await content.ReadAsStreamAsync().ConfigureAwait(false))
             {
                 return MessagePackSerializer.Deserialize<T>(s);
             }
+#else
+            throw new NotSupportedException();
+#endif
         }
         public static readonly Lazy<JsonContentSerializer> _current = new Lazy<JsonContentSerializer>(() => new JsonContentSerializer());
         public static JsonContentSerializer Default => _current.Value;
 
     }
 }
+

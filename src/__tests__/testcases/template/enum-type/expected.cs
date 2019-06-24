@@ -6,13 +6,17 @@ using System.Runtime.Serialization;
 using Fiveminlab.Newtonsoft.Json;
 using Fiveminlab.Newtonsoft.Json.Converters;
 
+#if USE_MSGPACK
 using MessagePack;
+#endif
 
 namespace Nozomi
 {
     public class EnumType
     {
+#if USE_MSGPACK
         [MessagePackObject]
+#endif
         public class EnumObj
         {
             readonly string _value;
@@ -59,7 +63,9 @@ namespace Nozomi
                 }
             }
         }
+#if USE_MSGPACK
         [MessagePackObject]
+#endif
         public class EnumObjInit
         {
             readonly string _value;
@@ -100,10 +106,14 @@ namespace Nozomi
                 }
             }
         }
+#if USE_MSGPACK
         [MessagePackObject]
+#endif
         public class Req
         {
+#if USE_MSGPACK
             [IgnoreMember]
+#endif
             [JsonIgnore]
             public EnumObj enumObj
             {
@@ -117,10 +127,14 @@ namespace Nozomi
                 }
             }
 
+#if USE_MSGPACK
             [KeyAttribute("enumObj")]
+#endif
             [JsonProperty("enumObj")]
             public string __raw_enumObj;
+#if USE_MSGPACK
             [IgnoreMember]
+#endif
             [JsonIgnore]
             public EnumObjInit enumObjInit
             {
@@ -134,11 +148,15 @@ namespace Nozomi
                 }
             }
 
+#if USE_MSGPACK
             [KeyAttribute("enumObjInit")]
+#endif
             [JsonProperty("enumObjInit")]
             public string __raw_enumObjInit;
         }
+#if USE_MSGPACK
         [MessagePackObject]
+#endif
         public class Resp
         {
         }
