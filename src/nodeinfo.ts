@@ -324,7 +324,7 @@ export class NodeInfo {
 							const name = (symbol.name !== '__type' && symbol.name) ? symbol.name : aliasText;
 							map.set(name, symbol);
 							if (symbol.members) {
-								const members: ts.Node[] = NodeInfo.getSymbolExports(symbol);
+								const members: ts.Node[] = NodeInfo.getSymbolMembers(symbol);
 								members.forEach(visitNode);
 							}
 						}
