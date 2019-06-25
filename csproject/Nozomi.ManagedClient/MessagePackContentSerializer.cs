@@ -49,8 +49,8 @@ namespace Nozomi
             throw new NotSupportedException();
 #endif
         }
-        public static readonly Lazy<JsonContentSerializer> _current = new Lazy<JsonContentSerializer>(() => new JsonContentSerializer());
-        public static JsonContentSerializer Default => _current.Value;
+        public static readonly Lazy<MessagePackContentSerializer> _current = new Lazy<MessagePackContentSerializer>(() => new MessagePackContentSerializer());
+        public static MessagePackContentSerializer Default => _current.Value;
 
     }
 }
