@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -11,4 +11,8 @@
       <HintPath>..\Dependency\AOT\Fiveminlab.Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <PropertyGroup Condition="$(USE_MSGPACK)!=''">
+    <AssemblyTitle>Nozomi.ManagedClient+MessagePack</AssemblyTitle>
+    <DefineConstants>USE_MSGPACK;$(AdditionalConstants)</DefineConstants>
+  </PropertyGroup>
 </Project>
