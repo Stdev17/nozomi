@@ -1,0 +1,111 @@
+{
+  "name": "SymbolName",
+  "api": {
+    "rootName": "SymbolName",
+    "namespace": "Nozomi",
+    "classes": [
+      {
+        "className": "Landsol",
+        "flag": {
+          "class": true
+        },
+        "members": [
+          {
+            "type": "Kyouka",
+            "name": "kyouka",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "Kyouka"
+          },
+          {
+            "type": "CharacterSpec",
+            "name": "nozomi",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "Nozomi"
+          }
+        ]
+      },
+      {
+        "className": "Kyouka",
+        "flag": {
+          "class": true
+        },
+        "members": [
+          {
+            "type": "bool",
+            "name": "love",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "Love"
+          },
+          {
+            "type": "int",
+            "name": "exp",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "Exp"
+          }
+        ]
+      },
+      {
+        "className": "CharacterSpec",
+        "flag": {
+          "class": true
+        },
+        "members": [
+          {
+            "type": "bool",
+            "name": "love",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "Love"
+          },
+          {
+            "type": "int",
+            "name": "exp",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "Exp"
+          }
+        ]
+      },
+      {
+        "className": "Req",
+        "flag": {
+          "class": true
+        },
+        "members": [
+          {
+            "type": "Landsol",
+            "name": "landsol",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "Landsol"
+          }
+        ]
+      },
+      {
+        "className": "Resp",
+        "flag": {
+          "class": true
+        },
+        "members": []
+      }
+    ],
+    "method": {
+      "resp": "SymbolName.Resp",
+      "req": "SymbolName.Req",
+      "url": "/sample/symbolname",
+      "method": "POST"
+    },
+    "kind": "NozomiTemplate"
+  }
+}

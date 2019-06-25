@@ -41,6 +41,7 @@ describe('compiler.test', () => {
 	test('nested object', () => assertCode(tsc, 'nested-object'));
 	test('nullable type', () => assertCode(tsc, 'nullable-type'));
 	test('enum type', () => assertCode(tsc, 'enum-type'));
+	test('symbol name', () => assertCode(tsc, 'symbol-name'));
 	test('union type', () => assertCodeThrow(tsc, 'union-type', 'Error: Union type not supported'));
 	test('non primitive type', () => assertCodeThrow(tsc, 'non-primitive', 'Error: Non primitive type not supported'));
 });
