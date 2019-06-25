@@ -298,7 +298,8 @@ export class NodeInfo {
 
 				function typeLiteral(typeNode: ts.TypeLiteralNode) {
 					const symbol = (typeNode as ts.TypeLiteralNode & { symbol: ts.Symbol }).symbol;
-					map.set(aliasText, symbol);
+					const name = (symbol.name !== '__type' && symbol.name) ? symbol.name : aliasText;
+					map.set(name, symbol);
 					if (symbol.members) {
 						const members: ts.Node[] = NodeInfo.getSymbolMembers(symbol);
 						members.forEach(visitNode);
@@ -310,7 +311,8 @@ export class NodeInfo {
 					const type = checker.getTypeAtLocation(typeName);
 					if (type.flags & ts.TypeFlags.EnumLiteral) {
 						const symbol = type.symbol || type.aliasSymbol;
-						map.set(aliasText, symbol);
+						const name = (symbol.name !== '__type' && symbol.name) ? symbol.name : aliasText;
+						map.set(name, symbol);
 						if (symbol.exports) {
 							const members: ts.Node[] = NodeInfo.getSymbolExports(symbol);
 							members.forEach(visitNode);
@@ -319,7 +321,8 @@ export class NodeInfo {
 					if (type.flags & ts.TypeFlags.Object) {
 						const symbol = type.symbol || type.aliasSymbol;
 						if (checkValidSymbol(symbol)) {
-							map.set(symbol.name, symbol);
+							const name = (symbol.name !== '__type' && symbol.name) ? symbol.name : aliasText;
+							map.set(name, symbol);
 							if (symbol.members) {
 								const members: ts.Node[] = NodeInfo.getSymbolExports(symbol);
 								members.forEach(visitNode);

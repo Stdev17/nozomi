@@ -4,7 +4,7 @@
       "rootName": "EnumType",
       "classes": [
         {
-          "className": "EnumObj",
+          "className": "EnumType",
           "flag": {
             "enum": true
           },
@@ -32,7 +32,7 @@
           ]
         },
         {
-          "className": "EnumObjInit",
+          "className": "EnumTypeWithInitializer",
           "flag": {
             "enum": true
           },
@@ -56,7 +56,7 @@
           },
           "members": [
             {
-              "type": "EnumObj",
+              "type": "EnumType",
               "name": "enumObj",
               "flag": {
                 "enum": true
@@ -64,7 +64,7 @@
               "caseName": "EnumObj"
             },
             {
-              "type": "EnumObjInit",
+              "type": "EnumTypeWithInitializer",
               "name": "enumObjInit",
               "flag": {
                 "enum": true
