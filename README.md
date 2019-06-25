@@ -20,8 +20,8 @@ Nozomi는 Express + Typescript 서버 API 코드를 기반으로 API 바인딩 �
 
 Typescript Compiler API를 사용해 코드를 분석하며 JSDoc 태그에 따라 특정 명령을 수행합니다
 
-`@nozomi`: Request/Response 구조체 및 API 바인딩 코드를 생성합니다
-`@nozomi-handler`: MQTT, WS 등에서 사용할 수 있는 핸들러 및 디스패처를 생성합니다
+* `@nozomi`: Request/Response 구조체 및 API 바인딩 코드를 생성합니다
+* `@nozomi-handler`: MQTT, WS 등에서 사용할 수 있는 핸들러 및 디스패처를 생성합니다
 
 ### 바인딩 코드 생성
 
