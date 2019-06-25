@@ -9,7 +9,6 @@ namespace NozomiTest
     {
         public readonly string AuthToken = "1234567890ABCDEF";
         public readonly string BaseAddress = "http://127.0.0.1:12396";
-        DevRequestHandler handler;
 
         public DevRequestHandler makeHandler(IContentSerializer requestSerializer, IContentSerializer responseSerializer, string AuthToken = null)
         {
