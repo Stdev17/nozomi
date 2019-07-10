@@ -98,7 +98,7 @@ public class DevRequestHandler : Nozomi.Dev.BaseRequestHandler
 				this.nozomi = nozomi;
 		}
 
-		protected override async Task<TResp> Handle<TReq, TResp>(string method, string path, TReq req)
+		protected override async Task<TResp> Handle<TReq, TResp>(string method, string path, TReq req, CancellationToken cancellationToken)
 		{
 				using (var message = new HttpRequestMessage(new HttpMethod(method), $"{nozomi.baseAddress}{path}"))
 				using (var httpReq = new SimpleRequest(nozomi.client, message, nozomi.requestSerializer, nozomi.responseSerializer))

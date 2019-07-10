@@ -2,6 +2,7 @@ import express from 'express';
 import { Request } from 'express';
 import _ from 'lodash';
 import * as yup from 'yup';
+import delay from 'delay';
 
 type Modify<T, R> = Pick<T, Exclude<keyof T, keyof R>> & R;
 
@@ -66,6 +67,9 @@ export const makeRequest = async <T extends object>(
 		res,
 	};
 };
+
+interface EmptyReq { }
+interface EmptyResp { }
 
 interface SimpleReq {
 	n: number;
@@ -152,6 +156,11 @@ export class PublicNozomiController {
 	public async simple_post(req: MyRequest<SimpleReq>) { return this.lazy('POST', req); }
 	public async simple_delete(req: MyRequest<SimpleReq>) { return this.lazy('DELETE', req); }
 	public async simple_put(req: MyRequest<SimpleReq>) { return this.lazy('PUT', req); }
+
+	public async timeout(req: MyRequest<EmptyReq>): Promise<EmptyResp> {
+		await delay(2 * 1000);
+		return {};
+	}
 
 	private async enumStringLazy(method: string, req: MyRequest<EnumStringReq>): Promise<EnumStringResp> {
 		const body = await enumStringSchema.validate(req.body);

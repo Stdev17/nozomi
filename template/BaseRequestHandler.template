@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace {{namespace}}
@@ -8,7 +9,8 @@ namespace {{namespace}}
         protected virtual Task<TResp> Handle<TReq, TResp>(
             string method,
             string path,
-            TReq req
+            TReq req,
+            CancellationToken cancellationToken
         )
         {
             throw new NotImplementedException();

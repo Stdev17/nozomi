@@ -1,5 +1,6 @@
 using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Nozomi
@@ -20,10 +21,10 @@ namespace Nozomi
             this.responseSerializer = responseSerializer ?? throw new ArgumentNullException(nameof(responseSerializer));
         }
 
-        public async Task<TResp> Handle<TReq, TResp>(string method, string path, TReq req)
+        public async Task<TResp> Handle<TReq, TResp>(string method, string path, TReq req, CancellationToken cancellationToken)
         {
             using (var message = new HttpRequestMessage(new HttpMethod(method), $"{baseAddress}{path}"))
-            using (var httpReq = new SimpleRequest(client, message, requestSerializer, responseSerializer))
+            using (var httpReq = new SimpleRequest(client, message, cancellationToken, requestSerializer, responseSerializer))
             {
                 return await httpReq.Request<TReq, TResp>(req);
             }

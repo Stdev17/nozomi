@@ -47,6 +47,16 @@ const lazy_delete = handle(opened.simple_delete.bind(opened), undefined);
 const lazy_put = handle(opened.simple_put.bind(opened), undefined);
 
 /**
+ * @nozomi NozomiTimeout
+ * @swagger
+ * /timeout:
+ *   get:
+ *     summary: timeout
+ *     tags: [nozomi]
+ */
+const timeout = handle(opened.timeout.bind(opened), undefined);
+
+/**
  * @nozomi NozomiSampleError
  * @swagger
  * /error:
@@ -126,6 +136,7 @@ app.get('/simple', lazy_get);
 app.post('/simple', lazy_post);
 app.delete('/simple', lazy_delete);
 app.put('/simple', lazy_put);
+app.get('/timeout', timeout);
 app.get('/error', simple_error);
 app.get('/user', user_get);
 app.post('/user', user_post);
