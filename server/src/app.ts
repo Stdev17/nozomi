@@ -1,6 +1,6 @@
 import express from 'express';
 import 'express-async-errors';
-import { mgsPackResponse } from './msgpack';
+import msgpack from 'express-msgpack';
 import { PublicNozomiController, PrivateNozomiController, handle } from './controller';
 
 const opened = new PublicNozomiController();
@@ -126,11 +126,41 @@ const enum_string_delete = handle(opened.enum_string_delete.bind(opened), undefi
  */
 const enum_string_put = handle(opened.enum_string_put.bind(opened), undefined);
 
+/**
+ * @nozomi NozomiStringLiteralGet
+ * @swagger
+ * /literal/string:
+ *   get:
+ *     summary: string literal get
+ *     tags: [nozomi]
+ */
+const string_literal_get = handle(opened.string_literal_get.bind(opened), undefined);
+
+/**
+ * @nozomi NozomiBooleanLiteralGet
+ * @swagger
+ * /literal/boolean:
+ *   get:
+ *     summary: boolean literal get
+ *     tags: [nozomi]
+ */
+const boolean_literal_get = handle(opened.boolean_literal_get.bind(opened), undefined);
+
+/**
+ * @nozomi NozomiNumberLiteralGet
+ * @swagger
+ * /literal/number:
+ *   get:
+ *     summary: number literal get
+ *     tags: [nozomi]
+ */
+const number_literal_get = handle(opened.number_literal_get.bind(opened), undefined);
+
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(mgsPackResponse({ auto_detect: true }));
+app.use(msgpack());
 
 app.get('/simple', lazy_get);
 app.post('/simple', lazy_post);
@@ -144,5 +174,8 @@ app.get('/enum/string', enum_string_get);
 app.post('/enum/string', enum_string_post);
 app.delete('/enum/string', enum_string_delete);
 app.put('/enum/string', enum_string_put);
+app.get('/literal/string', string_literal_get);
+app.get('/literal/boolean', boolean_literal_get);
+app.get('/literal/number', number_literal_get);
 
 export default app;

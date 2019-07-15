@@ -145,6 +145,29 @@ function enumStringConvert(method: string, body: EnumStringReq): EnumStringResp 
 	};
 }
 
+interface StringLiteralReq {
+	s: 's';
+}
+
+interface StringLiteralResp {
+	s: 's';
+}
+
+interface BooleanLiteralReq {
+	b: true;
+}
+
+interface BooleanLiteralResp {
+	b: true;
+}
+
+interface NumberLiteralReq {
+	n: 1;
+}
+
+interface NumberLiteralResp {
+	n: 1;
+}
 
 export class PublicNozomiController {
 	private async lazy(method: string, req: MyRequest<SimpleReq>): Promise<SimpleResp> {
@@ -171,6 +194,16 @@ export class PublicNozomiController {
 	public async enum_string_post(req: MyRequest<EnumStringReq>) { return this.enumStringLazy('POST', req); }
 	public async enum_string_delete(req: MyRequest<EnumStringReq>) { return this.enumStringLazy('DELETE', req); }
 	public async enum_string_put(req: MyRequest<EnumStringReq>) { return this.enumStringLazy('PUT', req); }
+
+	public async string_literal_get(req: MyRequest<StringLiteralReq>): Promise<StringLiteralResp> {
+		return await { s: req.body.s };
+	}
+	public async boolean_literal_get(req: MyRequest<BooleanLiteralReq>): Promise<BooleanLiteralResp> {
+		return await { b: req.body.b };
+	}
+	public async number_literal_get(req: MyRequest<NumberLiteralReq>): Promise<NumberLiteralResp> {
+		return await { n: req.body.n };
+	}
 
 	public async error(req: MyRequest<SimpleReq>) {
 		req.res.status(401);
