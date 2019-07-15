@@ -47,7 +47,7 @@
     "fs-extra": "^8.0.1",
     "glob": "^7.1.4",
     "iconv-lite": "^0.4.24",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "mustache": "^3.0.1",
     "relaxed-json": "^1.0.3",
     "source-map-support": "^0.5.12",
