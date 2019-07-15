@@ -11,7 +11,7 @@ namespace Nozomi
 {
     public class MessagePackContentSerializer : IContentSerializer
     {
-        public string ContentType => "application/x-msgpack";
+        public string ContentType => "application/msgpack";
 
         public Task<HttpContent> SerializeAsync<T>(object data)
         {

@@ -90,6 +90,15 @@ export class CSharpContext implements TransformContext {
 				}
 			}
 		}
+		if (type.flags & ts.TypeFlags.StringLiteral) {
+			return 'string';
+		}
+		if (type.flags & ts.TypeFlags.NumberLiteral) {
+			return 'int';
+		}
+		if (type.flags & ts.TypeFlags.BooleanLiteral) {
+			return 'bool';
+		}
 
 		const name = this.getKnownObjectName(type.symbol.getName());
 		return name;

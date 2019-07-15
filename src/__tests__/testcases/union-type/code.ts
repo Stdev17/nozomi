@@ -1,9 +1,9 @@
 interface UnionTypeReq {
-	ts: number | { 
-		date: string; 
-		timezone_type: number; 
-		timezone: string; 
-	}; 
+	ts: number | {
+		date: string;
+		timezone_type: number;
+		timezone: string;
+	};
 }
 
 interface UnionTypeResp {
@@ -12,7 +12,7 @@ interface UnionTypeResp {
 
 class MyRequest<T extends object> { }
 async function sampleAPIHandler(req: MyRequest<UnionTypeReq>): Promise<UnionTypeResp> {
-	return {} as Promise<NestedObjectResp>;
+	return {} as Promise<UnionTypeResp>;
 }
 
 /**
