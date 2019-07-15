@@ -1,6 +1,7 @@
 import glob from 'glob';
 import fse from 'fs-extra';
 import iconv from 'iconv-lite';
+import rimraf from 'rimraf';
 import { spawn } from 'child_process';
 
 interface ExecCommandOptions {
@@ -31,7 +32,6 @@ export function execCommand(cmd: string, args: string[], options: ExecCommandOpt
 
 export function clean(dir: string) {
 	try {
-		const files = glob.sync(dir);
-		files.forEach(f => fse.unlinkSync(f));
+		rimraf.sync(dir);
 	} catch { /* */ }
 }

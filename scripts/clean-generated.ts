@@ -3,8 +3,7 @@
  */
 import { paths } from '../src/config';
 import { clean } from './utils';
-import path from 'path';
 
-const generatedPath = path.resolve(paths.csproj.generated, '*.*');
+const generatedPath = paths.csproj.generated;
 console.log(`clean generated folder: ${generatedPath}`);
 clean(generatedPath);

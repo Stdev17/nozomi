@@ -33,6 +33,7 @@
     "@types/mustache": "^0.8.32",
     "@types/node": "^12.0.2",
     "@types/relaxed-json": "^1.0.0",
+    "@types/rimraf": "^2.0.2",
     "cross-env": "^5.2.0",
     "jest": "^24.8.0",
     "rimraf": "^2.6.3",

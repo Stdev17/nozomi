@@ -10,7 +10,7 @@ const namespace = process.env.NOZOMI_NAMESPACE;
 
 async function build(basePath: string, buildPath: string) {
 	console.log(`clean build folder: ${buildPath}`);
-	clean(path.resolve(buildPath + '/*.*'));
+	clean(buildPath);
 	const outputPath = paths.output;
 
 	await execCommand('dotnet', ['publish', basePath]);
@@ -27,6 +27,8 @@ async function build(basePath: string, buildPath: string) {
 		fse.copyFileSync(f, path.resolve(outputPath, fileName));
 		console.log(`Publish: ${path.resolve(outputPath, fileName)}`);
 	});
+
+	fse.copySync(paths.csproj.generated, path.resolve(paths.output, 'cs'));
 }
 
 async function main() {
@@ -43,6 +45,7 @@ async function main() {
 			await build(basePath, buildPath);
 		} catch (err) {
 			console.error(`build fail: ${basePath}`);
+			console.error(err);
 		}
 	}
 }

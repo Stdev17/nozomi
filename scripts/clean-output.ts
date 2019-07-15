@@ -3,8 +3,7 @@
  */
 import { paths } from '../src/config';
 import { clean } from './utils';
-import path from 'path';
 
-const outputPath = path.resolve(paths.output, '*.*');
+const outputPath = paths.output;
 console.log(`clean output folder: ${outputPath}`);
 clean(outputPath);
