@@ -94,7 +94,7 @@ function typeString(tsc: TSC, nodeInfo: NodeInfoItem, type: ts.Type) {
 }
 
 function getMembersItems(tsc: TSC, nodeInfo: NodeInfoItem, s: NodeType, className: string) {
-	const members: T.BaseTemplateMembers[] = [];
+	const members: T.BaseTemplateMember[] = [];
 
 	if (tsc.isArrayTypeNode(s)) {
 		const node = s as ts.ArrayTypeNode;
@@ -114,7 +114,7 @@ function getMembersItems(tsc: TSC, nodeInfo: NodeInfoItem, s: NodeType, classNam
 			const name = initializer ? initializer.getText().replace(/['"]+/g, '') : k;
 			const caseName = substitute(k);
 
-			const m = { type, name, caseName } as T.BaseTemplateMembers;
+			const m = { type, name, caseName } as T.BaseTemplateMember;
 
 			if (optional) {
 				m.optional = optional;
@@ -156,7 +156,7 @@ function getMembersItems(tsc: TSC, nodeInfo: NodeInfoItem, s: NodeType, classNam
 			return;
 		}
 
-		const m = {} as T.BaseTemplateMembers;
+		const m = {} as T.BaseTemplateMember;
 		m.type = typeText;
 		m.name = symbol.name;
 		m.flag = {

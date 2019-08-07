@@ -6,33 +6,31 @@ import * as U from '../utils';
 import {
 	NodeInfoRoot,
 	NodeInfoItem,
-	NodeTags,
 } from '../nodeinfos';
 
-import {
-	BaseTransform,
-} from './BaseTransform';
+import { BaseTransform } from './BaseTransform';
 
-export class NozomiHandlerTransform extends BaseTransform {
+interface NodeTags {
+	name: string;
+}
+
+export class StructTransform extends BaseTransform {
 	public transform(info: NodeInfoRoot) {
 		const { tsc } = this;
 
 		const checker = tsc.checker;
 		const item = info.item;
 		const tags = this.getNodeTags(item.node);
-		console.log(`generate <NozomiHandler> ${tags.name}.cs...`);
+		console.log(`generate <NozomiStruct> ${tags.name}.cs...`);
 
 		const name = tags.name;
-		const channel = tags.channel;
-		const template: T.NozomiHandlerTemplate = {
+		const classes = this.getTemplateClasses(item);
+		const template: T.NozomiStructTemplate = {
 			name,
-			channel,
 			namespace: U.getNozomiNamespace(),
-			kind: 'NozomiHandlerTemplate',
-			type: `${name}.Base`,
-			event: `On${name}Event`,
-			dispatcher: `${name}Dispatcher`,
-			classes: this.getTemplateClasses(item),
+			kind: 'NozomiStruct',
+			base: classes.filter(x => x.className === 'Base')[0],
+			classes: classes.filter(x => x.className !== 'Base'),
 		};
 
 		const object = {
@@ -58,23 +56,22 @@ export class NozomiHandlerTransform extends BaseTransform {
 	}
 
 	private getNodeTags(root: ts.Node) {
-		const tags = {} as { [key: string]: string } & NodeTags;
-		const item: string[] = ['nozomi_handler', 'nozomi_channel'];
+		const tags: NodeTags = {
+			name: '',
+		};
+		const items = ['nozomi_struct'];
 		ts.getJSDocTags(root).forEach(async (t) => {
-			if (item.includes(t.tagName.text) && t.comment) {
-				if (t.tagName.text === 'nozomi_handler') {
+			if (items.includes(t.tagName.text) && t.comment) {
+				if (t.tagName.text === 'nozomi_struct') {
 					tags.name = t.comment;
-				}
-				if (t.tagName.text === 'nozomi_channel') {
-					tags.channel = t.comment;
 				}
 			}
 		});
 
-		if (!tags.name || !tags.channel) {
-			throw new Error(`(${U.getSourceFileName(root)}) invalid nozomi_handler tags. require tags:nozomi_handler, nozomi_channel`);
+		if (!tags.name) {
+			throw new Error(`(${U.getSourceFileName(root)}) invalid nozomi_struct tags. require tags:nozomi_struct`);
 		}
+
 		return tags;
 	}
-
 }

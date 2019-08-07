@@ -45,4 +45,5 @@ describe('compiler.test', () => {
 	test('union type', () => assertCodeThrow(tsc, 'union-type', 'Error: Union type not supported'));
 	test('non primitive type', () => assertCodeThrow(tsc, 'non-primitive', 'Error: Non primitive type not supported'));
 	test('literal type', () => assertCode(tsc, 'literal-type'));
+	test('struct', () => assertCode(tsc, 'struct'));
 });

@@ -1,0 +1,66 @@
+{
+  "name": "NozomiStruct",
+  "api": {
+    "name": "NozomiStruct",
+    "namespace": "Nozomi",
+    "kind": "NozomiStruct",
+    "base": {
+      "className": "Base",
+      "flag": {
+        "class": true
+      },
+      "members": [
+        {
+          "type": "string",
+          "name": "val",
+          "flag": {
+            "enum": false
+          },
+          "caseName": "Val"
+        },
+        {
+          "type": "Inner",
+          "name": "inner",
+          "flag": {
+            "enum": false
+          },
+          "caseName": "Inner"
+        }
+      ]
+    },
+    "classes": [
+      {
+        "className": "Inner",
+        "flag": {
+          "class": true
+        },
+        "members": [
+          {
+            "type": "int",
+            "name": "a",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "A"
+          },
+          {
+            "type": "bool",
+            "name": "b",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "B"
+          },
+          {
+            "type": "string",
+            "name": "c",
+            "flag": {
+              "enum": false
+            },
+            "caseName": "C"
+          }
+        ]
+      }
+    ]
+  }
+}

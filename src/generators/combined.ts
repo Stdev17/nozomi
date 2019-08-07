@@ -6,17 +6,25 @@ import { NozomiHandlerGenerator } from './NozomiHandlerGenerator';
 import {
 	NozomiHandlerTemplate,
 	NozomiTemplate,
+	NozomiStructTemplate,
 } from '../template';
+import { StructGenerator } from './StructGenerator';
 
 const nozomiGenerator = new NozomiGenerator();
 const nozomiHandlerGenerator = new NozomiHandlerGenerator();
+const structGenerator = new StructGenerator();
 
 const generators = [
 	nozomiGenerator,
 	nozomiHandlerGenerator,
+	structGenerator,
 ];
 
-type AllTemplate = NozomiTemplate | NozomiHandlerTemplate;
+type AllTemplate = (
+	| NozomiTemplate
+	| NozomiHandlerTemplate
+	| NozomiStructTemplate
+);
 
 interface NameApiPair<T> {
 	name: string;
@@ -33,25 +41,39 @@ export function generate(tsc: TSC, sourceFile: ts.SourceFile) {
 }
 
 export function outputScript(objects: Array<NameApiPair<AllTemplate>>) {
-	const nozomiItems: Array<NameApiPair<NozomiTemplate>> = [];
-	const handlerItems: Array<NameApiPair<NozomiHandlerTemplate>> = [];
+	const nozomiItems = [];
+	const handlerItems = [];
+	const structItems = [];
 
 	for (const obj of objects) {
-		const api = obj.api;
-		if (isNozomiTemplate(api)) {
-			nozomiItems.push({ name: obj.name, api });
-		} else if (isNozomiHandlerTemplate(api)) {
-			handlerItems.push({ name: obj.name, api });
+		if (isNozomiPair(obj)) {
+			nozomiItems.push(obj);
+		} else if (isHandlerPair(obj)) {
+			handlerItems.push(obj);
+		} else if (isStructPair(obj)) {
+			structItems.push(obj);
 		}
 	}
 
 	nozomiGenerator.outputScript(nozomiItems);
 	nozomiHandlerGenerator.outputScript(handlerItems);
+	structGenerator.outputScript(structItems);
 }
 
-function isNozomiTemplate(obj: AllTemplate): obj is NozomiTemplate {
-	return obj.kind === 'NozomiTemplate' as any;
+function isNozomiPair(
+	pair: NameApiPair<AllTemplate>,
+): pair is NameApiPair<NozomiTemplate> {
+	return pair.api.kind === 'NozomiTemplate';
 }
-function isNozomiHandlerTemplate(obj: AllTemplate): obj is NozomiHandlerTemplate {
-	return obj.kind === 'NozomiHandlerTemplate' as any;
+
+function isHandlerPair(
+	pair: NameApiPair<AllTemplate>,
+): pair is NameApiPair<NozomiHandlerTemplate> {
+	return pair.api.kind === 'NozomiHandlerTemplate';
+}
+
+function isStructPair(
+	pair: NameApiPair<AllTemplate>,
+): pair is NameApiPair<NozomiStructTemplate> {
+	return pair.api.kind === 'NozomiStruct';
 }

@@ -18,8 +18,8 @@ interface NoticeMessage {
  * @nozomi_channel chat
  */
 interface PublicChatMessage {
-		author: string;
-		message: string;
+	author: string;
+	message: string;
 }
 
 /**
@@ -27,10 +27,17 @@ interface PublicChatMessage {
  * @nozomi_channel chat
  */
 interface WhisperMessage {
-		sender: string;
-		receiver: string;
-		message: string;
+	sender: string;
+	receiver: string;
+	message: string;
 }
+
+interface StructInner {
+	a: string;
+	b: number;
+	c: boolean;
+}
+
 /**
  * @nozomi_struct OnlyStruct
  */
@@ -38,4 +45,5 @@ interface OnlyStruct {
 	s: string;
 	n: number;
 	b: boolean;
+	inner: StructInner;
 }

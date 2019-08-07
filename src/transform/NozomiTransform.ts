@@ -67,7 +67,7 @@ export class NozomiTransform extends BaseTransform {
 	) {
 		const { tsc } = this;
 
-		const classes: T.BaseTemplateClasses[] = [];
+		const classes: T.BaseTemplateClass[] = [];
 		if (nodeInfo.req) {
 			nodeInfo.req.forEach(s => {
 				const className = this.getName(tsc, nodeInfo, s) || reqText;

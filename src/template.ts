@@ -3,12 +3,17 @@ import fse from 'fs-extra';
 import mustache from 'mustache';
 import { paths } from './config';
 
-type NozomiTemplateKind = 'NozomiTemplate' | 'NozomiHandlerTemplate';
+type NozomiTemplateKind = (
+	| 'NozomiTemplate'
+	| 'NozomiHandlerTemplate'
+	| 'NozomiStruct'
+);
+
 export interface NozomiTemplate {
 	kind: NozomiTemplateKind;
 	rootName: string;
 	namespace: string;
-	classes: BaseTemplateClasses[];
+	classes: BaseTemplateClass[];
 	method?: NozomiTemplateMethod;
 }
 
@@ -19,16 +24,16 @@ export interface NozomiTemplateMethod {
 	method: string;
 }
 
-export interface BaseTemplateClasses {
+export interface BaseTemplateClass {
 	className: string;
 	flag: {
 		class?: boolean;
 		enum?: boolean;
 	};
-	members: BaseTemplateMembers[];
+	members: BaseTemplateMember[];
 }
 
-export interface BaseTemplateMembers {
+export interface BaseTemplateMember {
 	type: string;
 	optional?: boolean;
 	name: string;
@@ -46,7 +51,7 @@ export interface NozomiHandlerTemplate {
 	channel: string;
 	event: string;
 	dispatcher: string;
-	classes: BaseTemplateClasses[];
+	classes: BaseTemplateClass[];
 }
 
 export interface NozomiDispatcherTemplate {
@@ -63,6 +68,14 @@ export interface NozomiBaseDispatcherTemplate {
 
 export interface NozomiRequestHandlerTemplate {
 	namespace: string;
+}
+
+export interface NozomiStructTemplate {
+	kind: NozomiTemplateKind;
+	name: string;
+	namespace: string;
+	base: BaseTemplateClass;
+	classes: BaseTemplateClass[];
 }
 
 export class Render {
@@ -84,6 +97,10 @@ export class Render {
 
 	public static baseRequestHandler(template: NozomiRequestHandlerTemplate) {
 		return mustache.render(readTemplateFile('BaseRequestHandler.template'), template);
+	}
+
+	public static struct(template: NozomiStructTemplate) {
+		return mustache.render(readTemplateFile('Struct.template'), template);
 	}
 }
 
