@@ -1,5 +1,5 @@
 import * as U from '../utils';
-import * as G from '../generator';
+import * as G from '../generators';
 
 import { TSC } from '../compiler';
 import { CSharpContext } from '../transform/csharp';

@@ -3,21 +3,20 @@ import ts from 'typescript';
 import * as T from '../template';
 import * as U from '../utils';
 
-import { TSC, NodeType } from '../compiler';
-import { CSharpContext } from './csharp';
 import {
 	NodeInfoRoot,
 	NodeInfoItem,
 	NodeTags,
 } from '../nodeinfos';
 
-import { BaseTransform, NozomiObject } from './BaseTransform';
+import {
+	BaseTransform,
+} from './BaseTransform';
 
 export class NozomiHandlerTransform extends BaseTransform {
 	public transform(info: NodeInfoRoot) {
 		const { tsc } = this;
 
-		const nozomiObject = {} as NozomiObject;
 		const checker = tsc.checker;
 		const item = info.item;
 		const tags = this.getNodeTags(item.node);
@@ -36,7 +35,7 @@ export class NozomiHandlerTransform extends BaseTransform {
 			classes: this.getTemplateClasses(item),
 		};
 
-		const object: NozomiObject = {
+		const object = {
 			name: tags.name,
 			api: template,
 		};

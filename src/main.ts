@@ -1,7 +1,7 @@
 import * as U from './utils';
 
 import { TSC } from './compiler';
-import { generate, outputScript } from './generator';
+import { generate, outputScript } from './generators';
 import { CSharpContext } from './transform/csharp';
 
 async function main(files: string[]) {

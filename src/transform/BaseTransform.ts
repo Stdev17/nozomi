@@ -11,11 +11,6 @@ import {
 	NodeTags,
 } from '../nodeinfos';
 
-export interface NozomiObject {
-	name: string;
-	api: T.NozomiTemplate | T.NozomiHandlerTemplate;
-}
-
 export interface TransformContext {
 	obtainTypeName: (type: ts.Type) => string;
 }
@@ -28,8 +23,6 @@ export abstract class BaseTransform {
 	constructor(tsc: TSC) {
 		this.tsc = tsc;
 	}
-
-	public abstract transform(info: NodeInfoRoot): NozomiObject;
 
 	protected typeString = typeString;
 	protected getMembersItems = getMembersItems;

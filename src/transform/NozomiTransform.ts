@@ -3,7 +3,6 @@ import ts from 'typescript';
 import * as T from '../template';
 import * as U from '../utils';
 
-import { TSC, NodeType } from '../compiler';
 import { CSharpContext } from './csharp';
 import {
 	NodeInfoRoot,
@@ -11,7 +10,9 @@ import {
 	NodeTags,
 } from '../nodeinfos';
 
-import { BaseTransform, NozomiObject } from './BaseTransform';
+import {
+	BaseTransform,
+} from './BaseTransform';
 
 const cs = new CSharpContext();
 
@@ -50,7 +51,7 @@ export class NozomiTransform extends BaseTransform {
 			kind: 'NozomiTemplate',
 		};
 
-		const object: NozomiObject = {
+		const object = {
 			name: tags.name,
 			api: template,
 		};
