@@ -12,10 +12,13 @@ import { TSC } from './compiler';
 import {
 	RESTNodeInfoFactory,
 	HandlerNodeInfoFactory,
+	BaseNodeInfoFactory,
 } from './nodeinfos';
 
 import {
-	Transform,
+	BaseTransform,
+	NozomiHandlerTransform,
+	NozomiTransform,
 	NozomiObject,
 } from './transform';
 
@@ -27,6 +30,7 @@ import {
 	NozomiBaseDispatcherTemplate,
 	NozomiRequestHandlerTemplate,
 } from './template';
+import { transform } from '@babel/core';
 
 interface TagNodePair {
 	type: string;
@@ -50,19 +54,24 @@ export function processNode(tsc: TSC, pair: TagNodePair) {
 	const name = pair.type;
 	const node = pair.node;
 
-	if (name === 'nozomi') {
-		const factory = new RESTNodeInfoFactory(tsc, node);
-		const info = factory.create();
-		return Transform.nozomi(tsc, info);
+	let factory: BaseNodeInfoFactory;
+	let transformer: BaseTransform;
+
+	switch (name) {
+		case 'nozomi':
+			factory = new RESTNodeInfoFactory(tsc);
+			transformer = new NozomiTransform(tsc);
+			break;
+		case 'nozomi_handler':
+			factory = new HandlerNodeInfoFactory(tsc);
+			transformer = new NozomiHandlerTransform(tsc);
+			break;
+		default:
+			throw new Error(`NotImplementedError: ${name}`);
 	}
-	else if (name === 'nozomi_handler') {
-		const factory = new HandlerNodeInfoFactory(tsc, node);
-		const info = factory.create();
-		return Transform.nozomiHandler(tsc, info);
-	}
-	else {
-		throw new Error(`NotImplementedError: ${name}`);
-	}
+
+	const info = factory.create(node);
+	return transformer.transform(info);
 }
 
 export function findTaggedNodes(root: ts.Node) {

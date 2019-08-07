@@ -7,8 +7,7 @@ import {
 } from './BaseNodeInfoFactory';
 
 export class HandlerNodeInfoFactory extends BaseNodeInfoFactory {
-	public create() {
-		const { node } = this;
+	public create(node: ts.Node) {
 		const result = {} as NodeInfoRoot;
 		result.item = {} as NodeInfoItem;
 		const symbols = this.getSymbols(node);

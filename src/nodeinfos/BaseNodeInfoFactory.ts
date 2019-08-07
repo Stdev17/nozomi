@@ -26,14 +26,12 @@ export type NodeTable = Map<string, NodeType>;
 
 export abstract class BaseNodeInfoFactory {
 	protected readonly tsc: TSC;
-	protected readonly node: ts.Node;
 
-	constructor(tsc: TSC, node: ts.Node) {
+	constructor(tsc: TSC) {
 		this.tsc = tsc;
-		this.node = node;
 	}
 
-	public abstract create(): NodeInfoRoot;
+	public abstract create(node: ts.Node): NodeInfoRoot;
 
 	protected getAllReferencedSymbols = getAllReferencedSymbols;
 	protected getSymbolMembers = getSymbolMembers;

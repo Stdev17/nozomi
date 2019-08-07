@@ -6,18 +6,18 @@ import {
 } from './BaseNodeInfoFactory';
 
 export class RESTNodeInfoFactory extends BaseNodeInfoFactory {
-	public create() {
-		const { tsc, node } = this;
+	public create(node: ts.Node) {
+		const { tsc } = this;
 		const result = {} as NodeInfoRoot;
 
 		this.descendant(node)
 			.filter(x => isMyRequestNode(tsc, x))
-			.map(x => this.visit(tsc, x, result));
+			.map(x => this.visit(tsc, node, x, result));
 
 		return result;
 	}
 
-	private visit(tsc: TSC, x: ts.Node, result: NodeInfoRoot) {
+	private visit(tsc: TSC, node: ts.Node, x: ts.Node, result: NodeInfoRoot) {
 		/**
 		 * TypeNode
 		 *
@@ -38,7 +38,6 @@ export class RESTNodeInfoFactory extends BaseNodeInfoFactory {
 		 *
 		 */
 
-		const { node } = this;
 		const checker = tsc.checker;
 
 		const typeNode = checker.typeToTypeNode(
