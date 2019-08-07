@@ -15,7 +15,7 @@ export function assertTemplate(name: string) {
 	const expectedPath = `./__tests__/testcases/template/${name}/expected.cs`;
 
 	const template = U.loadJson(templatePath);
-	const actual = Render.nozomi(template.api);
+	const actual = Render.rest(template.api);
 	const expected = U.loadFile(expectedPath);
 
 	expect(actual).toMatch(expected);

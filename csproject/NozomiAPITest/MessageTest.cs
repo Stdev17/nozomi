@@ -8,8 +8,8 @@ namespace NozomiTest
 {
     class NoticeDispatcher : BaseNoticeDispatcher
     {
-        public static NoticeMessage.Base noticeMsg = null;
-        public override void OnNoticeMessageEvent(NoticeMessage.Base message)
+        public static NoticeMessage noticeMsg = null;
+        public override void OnNoticeMessageEvent(NoticeMessage message)
         {
             noticeMsg = message;
         }
@@ -17,15 +17,15 @@ namespace NozomiTest
 
     class ChatDispatcher : BaseChatDispatcher
     {
-        public static PublicChatMessage.Base publicChatMsg = null;
-        public static WhisperMessage.Base whisperMsg = null;
+        public static PublicChatMessage publicChatMsg = null;
+        public static WhisperMessage whisperMsg = null;
 
-        public override void OnPublicChatMessageEvent(PublicChatMessage.Base message)
+        public override void OnPublicChatMessageEvent(PublicChatMessage message)
         {
             publicChatMsg = message;
         }
 
-        public override void OnWhisperMessageEvent(WhisperMessage.Base message)
+        public override void OnWhisperMessageEvent(WhisperMessage message)
         {
             whisperMsg = message;
         }

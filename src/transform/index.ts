@@ -1,4 +1,4 @@
 export * from './BaseTransform';
-export * from './NozomiTransform';
-export * from './NozomiHandlerTransform';
+export * from './RESTTransform';
+export * from './MessageTransform';
 export * from './StructTransform';

@@ -11,18 +11,17 @@ import * as U from '../utils';
 import { TSC } from '../compiler';
 
 import {
-	HandlerNodeInfoFactory,
+	RESTNodeInfoFactory,
 } from '../nodeinfos';
 
 import {
-	NozomiHandlerTransform,
+	RESTTransform,
 } from '../transform';
 
 import {
 	Render,
-	NozomiHandlerTemplate,
-	NozomiDispatcherTemplate,
-	NozomiBaseDispatcherTemplate,
+	RESTTemplate,
+	RequestHandlerTemplate,
 } from '../template';
 
 import {
@@ -30,7 +29,7 @@ import {
 	BaseGenerator,
 } from './BaseGenerator';
 
-export class NozomiHandlerGenerator extends BaseGenerator<NozomiHandlerTemplate>{
+export class RESTGenerator extends BaseGenerator<RESTTemplate>{
 	public generate(tsc: TSC, sourceFile: ts.SourceFile) {
 		const objs = findTaggedNodes(sourceFile)
 			.map(x => processNode(tsc, x));
@@ -46,43 +45,21 @@ export class NozomiHandlerGenerator extends BaseGenerator<NozomiHandlerTemplate>
 
 	public outputScript(objects: Array<{
 		name: string;
-		api: NozomiHandlerTemplate;
+		api: RESTTemplate;
 	}>) {
-		const channels: { [channels: string]: NozomiDispatcherTemplate } = {};
 		for (const obj of objects) {
-			const render = Render.nozomiHandler(obj.api);
-			const channel = obj.api.channel;
-			if (!channels[channel]) {
-				channels[channel] = {
-					name: channel,
-					namespace: U.getNozomiNamespace(),
-					dispatcher: `Base${U.firstWordCaptalize(channel)}Dispatcher`,
-					items: [],
-				};
-			}
-			channels[channel].items.push(obj.api);
-
+			const render = Render.rest(obj.api);
 			fse.outputFileSync(
 				path.resolve(paths.csproj.generated, obj.name + '.cs'), render);
 		}
 
-		for (const name in channels) {
-			if (name) {
-				const render = Render.generatedDispatcher(channels[name]);
-				fse.outputFileSync(
-					path.resolve(paths.csproj.generated,
-						channels[name].dispatcher + '.cs'), render);
-			}
-		}
-
-		const baseDispatcherObj: NozomiBaseDispatcherTemplate = {
+		const requestHandlerObj: RequestHandlerTemplate = {
 			namespace: U.getNozomiNamespace(),
-			items: Object.keys(channels),
 		};
-		const baseDispatcherRender = Render.baseDispatcher(baseDispatcherObj);
+		const requestHandlerRender = Render.baseRequestHandler(requestHandlerObj);
 		fse.outputFileSync(
-			path.resolve(paths.csproj.generated, 'BaseDispatcher.cs'),
-			baseDispatcherRender);
+			path.resolve(paths.csproj.generated, 'RequestHandler.cs'),
+			requestHandlerRender);
 	}
 }
 
@@ -90,12 +67,12 @@ function processNode(tsc: TSC, pair: TagNodePair) {
 	const name = pair.type;
 	const node = pair.node;
 
-	if (name !== 'nozomi_handler') {
+	if (name !== 'nozomi') {
 		throw new Error(`NotImplementedError: ${name}`);
 	}
 
-	const factory = new HandlerNodeInfoFactory(tsc);
-	const transformer = new NozomiHandlerTransform(tsc);
+	const factory = new RESTNodeInfoFactory(tsc);
+	const transformer = new RESTTransform(tsc);
 	const info = factory.create(node);
 	return transformer.transform(info);
 }
@@ -106,8 +83,8 @@ function findTaggedNodes(root: ts.Node) {
 	return result;
 
 	function aggregate(node: ts.Node): void {
-		if (ts.isInterfaceDeclaration(node)) {
-			getTagNode('nozomi_handler');
+		if (ts.isVariableStatement(node) || ts.isExpressionStatement(node)) {
+			getTagNode('nozomi');
 		}
 
 		function getTagNode(tagName: string) {
@@ -124,4 +101,5 @@ function findTaggedNodes(root: ts.Node) {
 		node.forEachChild(aggregate);
 	}
 }
+
 

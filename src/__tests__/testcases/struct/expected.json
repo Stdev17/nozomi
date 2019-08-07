@@ -3,7 +3,6 @@
   "api": {
     "name": "NozomiStruct",
     "namespace": "Nozomi",
-    "kind": "NozomiStruct",
     "base": {
       "className": "Base",
       "flag": {

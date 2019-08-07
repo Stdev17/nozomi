@@ -105,7 +105,6 @@
       "req": "SymbolName.Req",
       "url": "/sample/symbolname",
       "method": "POST"
-    },
-    "kind": "NozomiTemplate"
+    }
   }
 }

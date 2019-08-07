@@ -1,17 +1,18 @@
 import ts from 'typescript';
 import _ from 'lodash';
 import { TSC } from '../compiler';
-import { NozomiGenerator } from './NozomiGenerator';
-import { NozomiHandlerGenerator } from './NozomiHandlerGenerator';
+import { RESTGenerator } from './RESTGenerator';
+import { MessageGenerator } from './MessageGenerator';
 import {
-	NozomiHandlerTemplate,
-	NozomiTemplate,
-	NozomiStructTemplate,
+	MessageTemplate,
+	RESTTemplate,
+	StructTemplate,
+	TemplateKind,
 } from '../template';
 import { StructGenerator } from './StructGenerator';
 
-const nozomiGenerator = new NozomiGenerator();
-const nozomiHandlerGenerator = new NozomiHandlerGenerator();
+const nozomiGenerator = new RESTGenerator();
+const nozomiHandlerGenerator = new MessageGenerator();
 const structGenerator = new StructGenerator();
 
 const generators = [
@@ -21,9 +22,9 @@ const generators = [
 ];
 
 type AllTemplate = (
-	| NozomiTemplate
-	| NozomiHandlerTemplate
-	| NozomiStructTemplate
+	| RESTTemplate
+	| MessageTemplate
+	| StructTemplate
 );
 
 interface NameApiPair<T> {
@@ -41,39 +42,39 @@ export function generate(tsc: TSC, sourceFile: ts.SourceFile) {
 }
 
 export function outputScript(objects: Array<NameApiPair<AllTemplate>>) {
-	const nozomiItems = [];
-	const handlerItems = [];
+	const restItems = [];
+	const messageItems = [];
 	const structItems = [];
 
 	for (const obj of objects) {
-		if (isNozomiPair(obj)) {
-			nozomiItems.push(obj);
-		} else if (isHandlerPair(obj)) {
-			handlerItems.push(obj);
+		if (isRESTPair(obj)) {
+			restItems.push(obj);
+		} else if (isMessagePair(obj)) {
+			messageItems.push(obj);
 		} else if (isStructPair(obj)) {
 			structItems.push(obj);
 		}
 	}
 
-	nozomiGenerator.outputScript(nozomiItems);
-	nozomiHandlerGenerator.outputScript(handlerItems);
+	nozomiGenerator.outputScript(restItems);
+	nozomiHandlerGenerator.outputScript(messageItems);
 	structGenerator.outputScript(structItems);
 }
 
-function isNozomiPair(
+function isRESTPair(
 	pair: NameApiPair<AllTemplate>,
-): pair is NameApiPair<NozomiTemplate> {
-	return pair.api.kind === 'NozomiTemplate';
+): pair is NameApiPair<RESTTemplate> {
+	return pair.api.kind === TemplateKind.REST;
 }
 
-function isHandlerPair(
+function isMessagePair(
 	pair: NameApiPair<AllTemplate>,
-): pair is NameApiPair<NozomiHandlerTemplate> {
-	return pair.api.kind === 'NozomiHandlerTemplate';
+): pair is NameApiPair<MessageTemplate> {
+	return pair.api.kind === TemplateKind.Message;
 }
 
 function isStructPair(
 	pair: NameApiPair<AllTemplate>,
-): pair is NameApiPair<NozomiStructTemplate> {
-	return pair.api.kind === 'NozomiStruct';
+): pair is NameApiPair<StructTemplate> {
+	return pair.api.kind === TemplateKind.Struct;
 }

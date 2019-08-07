@@ -4,6 +4,34 @@ namespace {{namespace}}
 {
     public class {{name}}
     {
+        {{#base.members}}
+        {{#flag.enum}}
+#if USE_MSGPACK
+        [IgnoreMember]
+#endif
+        [JsonIgnore]
+        public {{&type}} {{name}}
+        {
+            get
+            {
+                return {{&type}}.Get(__raw_{{name}});
+            }
+            set
+            {
+                __raw_{{name}} = value.ToString();
+            }
+        }
+
+        [JsonProperty("{{name}}")]
+        public string __raw_{{name}};
+        {{/flag.enum}}
+        {{^flag.enum}}
+        [JsonProperty("{{name}}")]
+        public {{&type}} {{name}};
+        {{/flag.enum}}
+        {{/base.members}}
+
+
         {{#classes}}
         {{#flag.class}}
         public class {{className}}

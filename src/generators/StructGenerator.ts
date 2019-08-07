@@ -19,7 +19,7 @@ import {
 
 import {
 	Render,
-	NozomiStructTemplate,
+	StructTemplate,
 } from '../template';
 
 import {
@@ -27,7 +27,7 @@ import {
 	BaseGenerator,
 } from './BaseGenerator';
 
-export class StructGenerator extends BaseGenerator<NozomiStructTemplate> {
+export class StructGenerator extends BaseGenerator<StructTemplate> {
 	public generate(tsc: TSC, sourceFile: ts.SourceFile) {
 		const objs = findTaggedNodes(sourceFile)
 			.map(x => processNode(tsc, x));
@@ -43,7 +43,7 @@ export class StructGenerator extends BaseGenerator<NozomiStructTemplate> {
 
 	public outputScript(objects: Array<{
 		name: string;
-		api: NozomiStructTemplate;
+		api: StructTemplate;
 	}>) {
 		for (const obj of objects) {
 			const render = Render.struct(obj.api);

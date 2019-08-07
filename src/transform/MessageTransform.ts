@@ -13,26 +13,28 @@ import {
 	BaseTransform,
 } from './BaseTransform';
 
-export class NozomiHandlerTransform extends BaseTransform {
+export class MessageTransform extends BaseTransform {
 	public transform(info: NodeInfoRoot) {
 		const { tsc } = this;
 
 		const checker = tsc.checker;
 		const item = info.item;
 		const tags = this.getNodeTags(item.node);
-		console.log(`generate <NozomiHandler> ${tags.name}.cs...`);
+		console.log(`generate <Message> ${tags.name}.cs...`);
 
 		const name = tags.name;
 		const channel = tags.channel;
-		const template: T.NozomiHandlerTemplate = {
+		const classes = this.getTemplateClasses(item);
+		const template: T.MessageTemplate = {
 			name,
 			channel,
 			namespace: U.getNozomiNamespace(),
-			kind: 'NozomiHandlerTemplate',
-			type: `${name}.Base`,
+			kind: T.TemplateKind.Message,
+			type: `${name}`,
 			event: `On${name}Event`,
 			dispatcher: `${name}Dispatcher`,
-			classes: this.getTemplateClasses(item),
+			base: classes.filter(x => x.className === 'Base')[0],
+			classes: classes.filter(x => x.className !== 'Base'),
 		};
 
 		const object = {

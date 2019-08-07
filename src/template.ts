@@ -3,21 +3,21 @@ import fse from 'fs-extra';
 import mustache from 'mustache';
 import { paths } from './config';
 
-type NozomiTemplateKind = (
-	| 'NozomiTemplate'
-	| 'NozomiHandlerTemplate'
-	| 'NozomiStruct'
-);
+export enum TemplateKind {
+	REST = 'rest',
+	Message = 'message',
+	Struct = 'struct',
+}
 
-export interface NozomiTemplate {
-	kind: NozomiTemplateKind;
+export interface RESTTemplate {
+	kind: TemplateKind.REST;
 	rootName: string;
 	namespace: string;
 	classes: BaseTemplateClass[];
-	method?: NozomiTemplateMethod;
+	method?: TemplateMethod;
 }
 
-export interface NozomiTemplateMethod {
+export interface TemplateMethod {
 	req: string;
 	resp: string;
 	url: string;
@@ -43,35 +43,36 @@ export interface BaseTemplateMember {
 	caseName: string;
 }
 
-export interface NozomiHandlerTemplate {
-	kind: NozomiTemplateKind;
+export interface MessageTemplate {
+	kind: TemplateKind.Message;
 	name: string;
 	namespace: string;
 	type: string;
 	channel: string;
 	event: string;
 	dispatcher: string;
+	base: BaseTemplateClass;
 	classes: BaseTemplateClass[];
 }
 
-export interface NozomiDispatcherTemplate {
+export interface DispatcherTemplate {
 	name: string;
 	namespace: string;
 	dispatcher: string;
-	items: NozomiHandlerTemplate[];
+	items: MessageTemplate[];
 }
 
-export interface NozomiBaseDispatcherTemplate {
+export interface BaseDispatcherTemplate {
 	namespace: string;
 	items: string[];
 }
 
-export interface NozomiRequestHandlerTemplate {
+export interface RequestHandlerTemplate {
 	namespace: string;
 }
 
-export interface NozomiStructTemplate {
-	kind: NozomiTemplateKind;
+export interface StructTemplate {
+	kind: TemplateKind.Struct;
 	name: string;
 	namespace: string;
 	base: BaseTemplateClass;
@@ -79,27 +80,27 @@ export interface NozomiStructTemplate {
 }
 
 export class Render {
-	public static nozomi(template: NozomiTemplate) {
-		return mustache.render(readTemplateFile('Nozomi.template'), template);
+	public static rest(template: RESTTemplate) {
+		return mustache.render(readTemplateFile('REST.template'), template);
 	}
 
-	public static nozomiHandler(template: NozomiHandlerTemplate) {
-		return mustache.render(readTemplateFile('NozomiHandler.template'), template);
+	public static message(template: MessageTemplate) {
+		return mustache.render(readTemplateFile('Message.template'), template);
 	}
 
-	public static generatedDispatcher(template: NozomiDispatcherTemplate) {
+	public static generatedDispatcher(template: DispatcherTemplate) {
 		return mustache.render(readTemplateFile('GeneratedDispatcher.template'), template);
 	}
 
-	public static baseDispatcher(template: NozomiBaseDispatcherTemplate) {
+	public static baseDispatcher(template: BaseDispatcherTemplate) {
 		return mustache.render(readTemplateFile('BaseDispatcher.template'), template);
 	}
 
-	public static baseRequestHandler(template: NozomiRequestHandlerTemplate) {
+	public static baseRequestHandler(template: RequestHandlerTemplate) {
 		return mustache.render(readTemplateFile('BaseRequestHandler.template'), template);
 	}
 
-	public static struct(template: NozomiStructTemplate) {
+	public static struct(template: StructTemplate) {
 		return mustache.render(readTemplateFile('Struct.template'), template);
 	}
 }

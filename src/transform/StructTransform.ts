@@ -21,14 +21,14 @@ export class StructTransform extends BaseTransform {
 		const checker = tsc.checker;
 		const item = info.item;
 		const tags = this.getNodeTags(item.node);
-		console.log(`generate <NozomiStruct> ${tags.name}.cs...`);
+		console.log(`generate <Struct> ${tags.name}.cs...`);
 
 		const name = tags.name;
 		const classes = this.getTemplateClasses(item);
-		const template: T.NozomiStructTemplate = {
+		const template: T.StructTemplate = {
 			name,
 			namespace: U.getNozomiNamespace(),
-			kind: 'NozomiStruct',
+			kind: T.TemplateKind.Struct,
 			base: classes.filter(x => x.className === 'Base')[0],
 			classes: classes.filter(x => x.className !== 'Base'),
 		};

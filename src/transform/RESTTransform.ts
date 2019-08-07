@@ -16,14 +16,14 @@ import {
 
 const cs = new CSharpContext();
 
-export class NozomiTransform extends BaseTransform {
+export class RESTTransform extends BaseTransform {
 	public transform(info: NodeInfoRoot) {
 		const { tsc } = this;
 
 		const checker = tsc.checker;
 		const item = info.item;
 		const tags = this.getNodeTags(item.node);
-		console.log(`generate ${tags.name}.cs...`);
+		console.log(`generate <REST> ${tags.name}.cs...`);
 
 		const reqText = 'Req';
 		const respText = 'Resp';
@@ -43,12 +43,12 @@ export class NozomiTransform extends BaseTransform {
 		const url = tags.route;
 		const method = tags.method;
 
-		const template: T.NozomiTemplate = {
+		const template: T.RESTTemplate = {
 			rootName: tags.name,
 			namespace: U.getNozomiNamespace(),
 			classes: this.getTemplateClasses(item, reqText, respText),
 			method: { resp, req, url, method },
-			kind: 'NozomiTemplate',
+			kind: T.TemplateKind.REST,
 		};
 
 		const object = {
