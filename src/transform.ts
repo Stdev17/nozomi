@@ -9,7 +9,7 @@ import {
 	NodeInfoRoot,
 	NodeInfoItem,
 	NodeTags,
-} from './nodeinfo';
+} from './nodeinfos';
 
 export interface NozomiObject {
 	name: string;

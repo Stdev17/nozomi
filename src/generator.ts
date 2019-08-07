@@ -9,7 +9,10 @@ import { paths } from './config';
 import * as U from './utils';
 
 import { TSC } from './compiler';
-import { NodeInfo } from './nodeinfo';
+import {
+	RESTNodeInfoFactory,
+	HandlerNodeInfoFactory,
+} from './nodeinfos';
 
 import {
 	Transform,
@@ -46,16 +49,19 @@ export function generate(tsc: TSC, sourceFile: ts.SourceFile) {
 export function processNode(tsc: TSC, pair: TagNodePair) {
 	const name = pair.type;
 	const node = pair.node;
+
 	if (name === 'nozomi') {
-		const info = NodeInfo.nozomi(tsc, node);
+		const factory = new RESTNodeInfoFactory(tsc, node);
+		const info = factory.create();
 		return Transform.nozomi(tsc, info);
 	}
 	else if (name === 'nozomi_handler') {
-		const info = NodeInfo.nozomiHandler(tsc, node);
+		const factory = new HandlerNodeInfoFactory(tsc, node);
+		const info = factory.create();
 		return Transform.nozomiHandler(tsc, info);
 	}
 	else {
-		throw new Error('NotImplementedError');
+		throw new Error(`NotImplementedError: ${name}`);
 	}
 }
 
