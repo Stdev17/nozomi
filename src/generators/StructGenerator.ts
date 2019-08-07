@@ -47,7 +47,6 @@ export class StructGenerator extends BaseGenerator<NozomiStructTemplate> {
 	}>) {
 		for (const obj of objects) {
 			const render = Render.struct(obj.api);
-			console.log(render);
 			const fp = path.resolve(paths.csproj.generated, obj.name + '.cs');
 			fse.outputFileSync(fp, render);
 		}

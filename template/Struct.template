@@ -1,6 +1,10 @@
 using System;
 using Fiveminlab.Newtonsoft.Json;
 
+#if USE_MSGPACK
+using MessagePack;
+#endif
+
 namespace {{namespace}}.Types
 {
 #if USE_MSGPACK
