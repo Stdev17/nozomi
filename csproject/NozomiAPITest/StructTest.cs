@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Nozomi.Dev.Types;
+using Nozomi.Dev;
 
 namespace NozomiTest
 {

@@ -6,7 +6,7 @@ using Fiveminlab.Newtonsoft.Json;
 using MessagePack;
 #endif
 
-namespace {{namespace}}.Types
+namespace {{namespace}}
 {
 #if USE_MSGPACK
     [MessagePackObject]
